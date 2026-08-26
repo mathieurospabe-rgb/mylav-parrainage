@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parrainage MYLAV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bleu:#1478C0;
+    --rouge:#BB3B3C;
+    --bordeaux:#8A3568;
+    --gris-txt:#333;
+    --gris-bord:#d5d9e0;
+    --bleu-clair:#e8f2fb;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#f4f6f9;
+    font-family:'Source Sans 3',system-ui,sans-serif;
+    color:var(--gris-txt);
+    line-height:1.55;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:24px 16px 60px}
+  .banner{
+    width:100%;
+    border-radius:8px 8px 0 0;
+    display:block;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--gris-bord);
+    border-top:none;
+    border-radius:0 0 10px 10px;
+    padding:28px 26px 32px;
+    box-shadow:0 2px 12px rgba(20,120,192,.06);
+  }
+  .intro{font-size:16px;margin:0 0 22px}
+  .intro strong{color:var(--bleu)}
+  h2{
+    font-family:'Raleway',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    color:var(--bleu);
+    margin:26px 0 4px;
+    padding-bottom:6px;
+    border-bottom:2px solid var(--bleu-clair);
+  }
+  .hint{font-size:13.5px;color:#6b7280;margin:0 0 14px}
+  label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+  label .req{color:var(--rouge)}
+  input{
+    width:100%;
+    padding:11px 12px;
+    font-size:15px;
+    font-family:inherit;
+    border:1px solid var(--gris-bord);
+    border-radius:7px;
+    background:#fdfdfe;
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input:focus{
+    outline:none;
+    border-color:var(--bleu);
+    box-shadow:0 0 0 3px rgba(20,120,192,.15);
+  }
+  input.err{border-color:var(--rouge);box-shadow:0 0 0 3px rgba(187,59,60,.12)}
+  .field-err{color:var(--rouge);font-size:13px;margin-top:4px;display:none}
+  .row{display:flex;gap:14px}
+  .row .col-cp{flex:0 0 130px}
+  .row .col-grow{flex:1}
+  .lookup{
+    font-size:13px;color:var(--bleu);margin-top:6px;min-height:18px;
+  }
+  .btn{
+    width:100%;
+    margin-top:28px;
+    padding:15px;
+    font-family:'Raleway',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    color:#fff;
+    background:var(--rouge);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s,transform .05s;
+  }
+  .btn:hover{background:#a53233}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{background:#c9a0a1;cursor:not-allowed}
+  .consent{
+    display:flex;gap:10px;align-items:flex-start;
+    font-size:13px;color:#555;margin-top:20px;
+  }
+  .consent input{width:auto;margin-top:3px;flex:0 0 auto}
+  .foot{
+    text-align:center;font-size:12.5px;color:#8a93a2;margin-top:22px;
+  }
+  .ok, .ko{
+    display:none;padding:22px;border-radius:9px;font-size:15.5px;margin-top:6px;
+  }
+  .ok{background:#eafaf1;border:1px solid #b6e6c9;color:#1c6b3c}
+  .ko{background:#fdecec;border:1px solid #f3c0c0;color:#a12a2b}
+  .ok h3{margin:0 0 8px;font-family:'Raleway',sans-serif;color:#1c6b3c}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Remplace le src par l'URL du bandeau hébergé (GitHub Pages ou Mailchimp CDN) -->
+  <img class="banner" src="bandeau_parrainage_mylav.png" alt="Parrainage MYLAV">
+
+  <div class="card">
+    <div id="formZone">
+      <p class="intro">
+        Une consœur ou un confrère vous a recommandé <strong>MYLAV</strong>&nbsp;?
+        Renseignez ci-dessous votre clinique et celle qui vous parraine.
+        Vous découvrez le laboratoire pendant un mois, et la remise s'applique
+        pour vous deux.
+      </p>
+
+      <h2>Votre clinique</h2>
+      <p class="hint">La clinique qui découvre le laboratoire.</p>
+
+      <label for="f_clinique">Nom de la clinique <span class="req">*</span></label>
+      <input type="text" id="f_clinique" autocomplete="organization">
+      <div class="field-err" id="e_f_clinique">Merci d'indiquer le nom de votre clinique.</div>
+
+      <div class="row">
+        <div class="col-cp">
+          <label for="f_cp">Code postal <span class="req">*</span></label>
+          <input type="text" id="f_cp" inputmode="numeric" maxlength="5" autocomplete="postal-code">
+        </div>
+        <div class="col-grow">
+          <label for="f_ville">Ville</label>
+          <input type="text" id="f_ville" autocomplete="address-level2">
+        </div>
+      </div>
+      <div class="field-err" id="e_f_cp">Code postal à 5 chiffres attendu.</div>
+      <div class="lookup" id="routage"></div>
+
+      <label for="f_contact">Votre nom <span class="req">*</span></label>
+      <input type="text" id="f_contact" autocomplete="name">
+      <div class="field-err" id="e_f_contact">Merci d'indiquer votre nom.</div>
+
+      <label for="f_email">Email <span class="req">*</span></label>
+      <input type="email" id="f_email" autocomplete="email">
+      <div class="field-err" id="e_f_email">Adresse email invalide.</div>
+
+      <h2>La clinique qui vous parraine</h2>
+      <p class="hint">La clinique marraine, déjà cliente MYLAV.</p>
+
+      <label for="m_clinique">Nom de la clinique marraine <span class="req">*</span></label>
+      <input type="text" id="m_clinique">
+      <div class="field-err" id="e_m_clinique">Merci d'indiquer la clinique qui vous parraine.</div>
+
+      <div class="row">
+        <div class="col-cp">
+          <label for="m_cp">Code postal <span class="req">*</span></label>
+          <input type="text" id="m_cp" inputmode="numeric" maxlength="5">
+        </div>
+        <div class="col-grow">
+          <label for="m_ville">Ville</label>
+          <input type="text" id="m_ville">
+        </div>
+      </div>
+      <div class="field-err" id="e_m_cp">Code postal à 5 chiffres attendu.</div>
+
+      <div class="consent">
+        <input type="checkbox" id="rgpd">
+        <label for="rgpd" style="font-weight:400;margin:0">
+          J'accepte que MYLAV utilise ces informations pour le suivi de mon
+          parrainage et me recontacte à ce sujet. <span class="req">*</span>
+        </label>
+      </div>
+
+      <button class="btn" id="submit">Valider mon parrainage</button>
+      <p class="foot">Un laboratoire de praticiens pour des praticiens</p>
+    </div>
+
+    <div class="ok" id="okBox">
+      <h3>C'est enregistré, merci&nbsp;!</h3>
+      Votre responsable commercial MYLAV va prendre contact avec vous pour
+      la mise en place de votre découverte du laboratoire. À très vite.
+    </div>
+    <div class="ko" id="koBox">
+      Une erreur est survenue à l'envoi. Merci de réessayer dans un instant,
+      ou de contacter votre responsable commercial MYLAV.
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Configuration ────────────────────────────────────────────────
+// URL du Cloudflare Worker qui écrit dans Notion (voir worker.js)
+const WORKER_URL = "https://mylav-parrainage.VOTRE-SOUS-DOMAINE.workers.dev";
+
+// ── Helpers ──────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const isCP = v => /^\d{5}$/.test(v.trim());
+const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
+function showErr(id, on){
+  $(id).classList.toggle('err', on);
+  $('e_'+id).style.display = on ? 'block' : 'none';
+}
+
+// Affiche le routage commercial dès que le CP filleul est saisi.
+// La logique de correspondance CP → commercial vit dans le Worker :
+// on l'interroge pour rester synchrone avec le mapping commande matériel.
+let routageTimer;
+$('f_cp').addEventListener('input', () => {
+  const cp = $('f_cp').value.trim();
+  $('routage').textContent = '';
+  clearTimeout(routageTimer);
+  if(!isCP(cp)) return;
+  routageTimer = setTimeout(async () => {
+    try{
+      const r = await fetch(`${WORKER_URL}/routage?cp=${cp}`);
+      if(!r.ok) return;
+      const d = await r.json();
+      if(d.commercial){
+        $('routage').textContent = `Votre secteur : ${d.commercial}`;
+      }
+    }catch(_){ /* silencieux : le routage se fera côté serveur de toute façon */ }
+  }, 350);
+});
+
+function validate(){
+  let ok = true;
+  const clin = $('f_clinique').value.trim();
+  const cp   = $('f_cp').value.trim();
+  const cont = $('f_contact').value.trim();
+  const mail = $('f_email').value.trim();
+  const mcl  = $('m_clinique').value.trim();
+  const mcp  = $('m_cp').value.trim();
+
+  showErr('f_clinique', !clin);           if(!clin) ok = false;
+  showErr('f_cp', !isCP(cp));             if(!isCP(cp)) ok = false;
+  showErr('f_contact', !cont);            if(!cont) ok = false;
+  showErr('f_email', !isEmail(mail));     if(!isEmail(mail)) ok = false;
+  showErr('m_clinique', !mcl);            if(!mcl) ok = false;
+  showErr('m_cp', !isCP(mcp));            if(!isCP(mcp)) ok = false;
+
+  if(!$('rgpd').checked){ ok = false; $('rgpd').focus(); }
+  return ok;
+}
+
+$('submit').addEventListener('click', async () => {
+  if(!validate()) return;
+
+  const btn = $('submit');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours…';
+
+  const payload = {
+    filleule: {
+      clinique: $('f_clinique').value.trim(),
+      cp:       $('f_cp').value.trim(),
+      ville:    $('f_ville').value.trim(),
+      contact:  $('f_contact').value.trim(),
+      email:    $('f_email').value.trim()
+    },
+    marraine: {
+      clinique: $('m_clinique').value.trim(),
+      cp:       $('m_cp').value.trim(),
+      ville:    $('m_ville').value.trim()
+    },
+    rgpd: true,
+    source: "formulaire-parrainage"
+  };
+
+  try{
+    const r = await fetch(`${WORKER_URL}/parrainage`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    $('formZone').style.display = 'none';
+    $('okBox').style.display = 'block';
+  }catch(err){
+    btn.disabled = false;
+    btn.textContent = 'Valider mon parrainage';
+    $('koBox').style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
